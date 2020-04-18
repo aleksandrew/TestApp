@@ -1,30 +1,34 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
+// outsource dependencies
+import React, { memo } from 'react';
+import {Provider} from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import Home from "./pages/Home";
-import Gallery from "./pages/Gallery";
+
+// local dependencies
+import store from './store';
+import Home from './pages/Home';
+import Gallery from './pages/Gallery';
+
 
 const Stack = createStackNavigator();
 
-const App = () => {
+const NavigationMiddleware = memo(() => {
   return (
-    <NavigationContainer>
+      <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={Home}/>
           <Stack.Screen name="Gallery" component={Gallery} />
-          {/*<Stack.Screen name="Profile" component={Profile} />*/}
-          {/*<Stack.Screen name="Settings" component={Settings} />*/}
         </Stack.Navigator>
-    </NavigationContainer>
+      </NavigationContainer>
   )
-};
+});
+
+const App = memo(() => {
+  return (
+    <Provider store = { store }>
+      <NavigationMiddleware />
+    </Provider>
+  )
+});
 
 export default App;
