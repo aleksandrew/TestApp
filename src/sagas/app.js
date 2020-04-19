@@ -2,8 +2,8 @@
 import {takeEvery, put, call} from 'redux-saga/effects';
 
 // local dependencies
-import { TYPES } from '../constans/types';
 import { get } from 'axios';
+import { TYPES } from '../constans/types';
 
 function* setData() {
   try {
