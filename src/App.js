@@ -8,17 +8,20 @@ import {NavigationContainer} from '@react-navigation/native';
 import store from './store';
 import Home from './screens/Home';
 import Gallery from './screens/Gallery';
+import {ROUTES} from './constans/routes';
 
 
 const Stack = createStackNavigator();
 
 const NavigationMiddleware = memo(() => (
   <NavigationContainer>
-    <Stack.Navigator initialRouteName="Home" screenOptions={{gestureEnabled: true}}>
-      <Stack.Screen name="Home"
+    <Stack.Navigator initialRouteName={ROUTES.HOME}
+                     screenOptions={{gestureEnabled: true}}
+    >
+      <Stack.Screen name={ROUTES.HOME}
                     component={Home}
       />
-      <Stack.Screen name="Gallery"
+      <Stack.Screen name={ROUTES.GALLERY}
                     component={Gallery}
       />
     </Stack.Navigator>

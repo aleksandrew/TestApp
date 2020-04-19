@@ -9,6 +9,7 @@ import { Card, CardItem, Container, Content, Left, Text } from 'native-base';
 import { selector } from '../store/app';
 import Loader from '../components/Loader';
 import { TYPES } from '../constans/types';
+import { ROUTES } from '../constans/routes';
 
 
 export default Home = memo(({ navigation }) => {
@@ -41,7 +42,7 @@ export default Home = memo(({ navigation }) => {
                   </CardItem>
                   <CardItem cardBody
                             button title="Go to Photo"
-                            onPress={() => navigation.navigate('Gallery', {
+                            onPress={() => navigation.navigate(ROUTES.GALLERY, {
                                 name: item.user.name,
                                 img: item.urls.raw,
                               }
