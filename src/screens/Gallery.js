@@ -1,29 +1,43 @@
 // outsource dependencies
-import { Container } from 'native-base';
-import React, { memo, useEffect } from 'react';
-import { Image, Dimensions } from 'react-native';
+import {Container} from 'native-base';
+import {useSelector} from 'react-redux';
+import React, {memo, useEffect} from 'react';
+import {Image, StyleSheet} from 'react-native';
 
 // local dependencies
+import {selector} from '../store/app';
+import Loader from '../components/Loader';
 
 
-export default Gallery = memo(({ navigation, route }) => {
+export default Gallery = memo(({navigation, route}) => {
   const {name, img} = route.params;
+
+  // state
+  const { loading } = useSelector(state => selector(state));
 
   useEffect(() => {
     navigation.setOptions({
       title: name,
     });
-  }, [ navigation ]);
-
-  const width = Dimensions.get('window').width;
-  const height = Dimensions.get('window').height;
+  }, [navigation]);
 
   return (
     <Container>
-      <Image
-        source={{ uri: img }}
-        style={{ width, height }}
-      />
+      {loading
+        ? <Loader/>
+        : <Image
+            source={{uri: img}}
+            style={styles.img}
+          />
+      }
     </Container>
   );
+});
+
+const styles = StyleSheet.create({
+  img: {
+    flex: 1,
+    width: '100%',
+    resizeMode: 'contain',
+  },
 });

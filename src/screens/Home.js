@@ -32,24 +32,24 @@ export default Home = memo(({ navigation }) => {
             {
               _.map(data, item => (
                 <Card key={ item.id }>
-                  <CardItem cardBody
-                            button title="Go to Photo"
-                            onPress={() => navigation.navigate('Gallery', {
-                                img: item.urls.regular,
-                                name: item.user.name
-                              }
-                            )}
-                  >
-                    <Image style={ styles.img }
-                           source={{ uri: item.urls.regular }}
-                    />
-                  </CardItem>
                   <CardItem>
                     <Left>
                       <Text>
                         { item.user.name }
                       </Text>
                     </Left>
+                  </CardItem>
+                  <CardItem cardBody
+                            button title="Go to Photo"
+                            onPress={() => navigation.navigate('Gallery', {
+                                name: item.user.name,
+                                img: item.urls.raw,
+                              }
+                            )}
+                  >
+                    <Image style={ styles.img }
+                           source={{ uri: item.urls.regular }}
+                    />
                   </CardItem>
                 </Card>
               ))
