@@ -12,27 +12,23 @@ import Gallery from './screens/Gallery';
 
 const Stack = createStackNavigator();
 
-const NavigationMiddleware = memo(() => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home"
-                      component={Home}
-        />
-        <Stack.Screen name="Gallery"
-                      component={Gallery}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  )
-});
+const NavigationMiddleware = memo(() => (
+  <NavigationContainer>
+    <Stack.Navigator initialRouteName="Home" screenOptions={{gestureEnabled: true}}>
+      <Stack.Screen name="Home"
+                    component={Home}
+      />
+      <Stack.Screen name="Gallery"
+                    component={Gallery}
+      />
+    </Stack.Navigator>
+  </NavigationContainer>
+));
 
-const App = memo(() => {
-  return (
-    <Provider store={store}>
-      <NavigationMiddleware/>
-    </Provider>
-  )
-});
+const App = memo(() => (
+  <Provider store={store}>
+    <NavigationMiddleware/>
+  </Provider>
+));
 
 export default App;
