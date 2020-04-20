@@ -9,6 +9,7 @@ https://drive.google.com/drive/folders/13t1-NSrcVU3xHZCtjyGlhD9JLAm_E_71
 > Stack have been used:
 > 
 > * [React.js](https://reactjs.org/)
+> * [NativeBase](https://nativebase.io/)
 > * [React Native](https://reactnative.dev/)
 > * [React Navigation](https://reactnavigation.org/)
 > * [Redux](https://redux.js.org/)
