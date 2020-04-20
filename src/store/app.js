@@ -1,7 +1,7 @@
 // outsource dependencies
 
 // local dependencies
-import TYPES from '../types';
+import { TYPES } from '../constans/types';
 
 const initialState = {
   data: null,
@@ -20,7 +20,7 @@ const app = (state = initialState, action) => {
       return {...state, loading: false};
 
     case TYPES.CALL_SUCCESS: {
-      const { data } = action.payload;
+      const { data } = action;
 
       return {...state, data};
     }
