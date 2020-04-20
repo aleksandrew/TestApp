@@ -1,55 +1,64 @@
 // outsource dependencies
 import _ from 'lodash';
-import { Image, StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import React, {memo, useEffect, useCallback} from 'react';
-import { Card, CardItem, Container, Content, Left, Text } from 'native-base';
+import {Image, StyleSheet} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import React, {memo, useEffect, useCallback, useMemo} from 'react';
+import {Card, CardItem, Container, Content, Left, Text} from 'native-base';
 
 // local dependencies
-import { selector } from '../store/app';
+import {selector} from '../store/app';
+import {TYPES} from '../constans/types';
 import Loader from '../components/Loader';
-import { TYPES } from '../constans/types';
-import { ROUTES } from '../constans/routes';
+import {ROUTES} from '../constans/routes';
 
 
-export default Home = memo(({ navigation }) => {
+export default Home = memo(({navigation}) => {
   // dispatch
   const dispatch = useDispatch();
-  const setData = useCallback(() => dispatch({ type: TYPES.SET_DATA }), [ dispatch ]);
+  const setData = useCallback(() => dispatch({type: TYPES.SET_DATA}), [dispatch]);
 
   // state
-  const { data, loading } = useSelector(state => selector(state));
+  const {data, loading} = useSelector(state => selector(state));
 
   useEffect(() => {
     setData();
-  }, [ setData ]);
+  }, [setData]);
+
+  const dataUser = useMemo(() =>
+    _.map(data, item => ({
+      id: item.id,
+      name: item.user.name,
+      imgRaw: item.urls.raw,
+      imgRegular: item.urls.regular,
+    })), [data]
+  );
 
   return (
     <Container>
-      { loading
+      {loading
         ? <Loader/>
         : (
           <Content>
             {
-              _.map(data, item => (
-                <Card key={ item.id }>
+              _.map(dataUser, item => (
+                <Card key={item.id}>
                   <CardItem>
                     <Left>
                       <Text>
-                        { item.user.name }
+                        {item.name}
                       </Text>
                     </Left>
                   </CardItem>
                   <CardItem cardBody
                             button title="Go to Photo"
                             onPress={() => navigation.navigate(ROUTES.GALLERY, {
-                                name: item.user.name,
-                                img: item.urls.raw,
+                                name: item.name,
+                                img: item.imgRaw,
                               }
                             )}
                   >
-                    <Image style={ styles.img }
-                           source={{ uri: item.urls.regular }}
+                    <Image style={styles.img}
+                           source={{uri: item.imgRegular}}
                     />
                   </CardItem>
                 </Card>
